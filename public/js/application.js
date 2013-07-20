@@ -1,7 +1,42 @@
 $(document).ready(function() {
-  // This is called after the document has loaded in its entirety
-  // This guarantees that any elements we bind to will exist on the page
-  // when we try to bind to them
+  $('#create').on('submit', function(event){
+    event.preventDefault();
+    event.stopPropagation();
+    var url = $(this).attr('action');
+    $(this).hide();
+    $.get(url, function(data){
+      $('#top').append(data);
+    });
+  });
 
-  // See: http://docs.jquery.com/Tutorials:Introducing_$(document).ready()
+  $('#top').on('submit', 'form', function(event){
+    event.preventDefault();
+    event.stopPropagation();
+    var url = $(this).attr('action');
+    var data = $(this).serialize();
+    $.post(url, data, function(response){
+      $('#notes').prepend(response);
+    });
+    $(this).remove();
+    $('#create').show();
+  });
+  // Delete
+    $('.delete').on('submit', function(event){
+    event.preventDefault();
+    event.stopPropagation();
+    var url = $(this).attr('action');
+    $(this).hide();
+    var that = $(this).parent();
+    $.get(url, function(data){
+      $(that).append(data);
+    });
+  });
+
+  $('.note').on('submit', '#yes', function(event){
+    event.preventDefault();
+    event.stopPropagation();
+    var url = $(this).attr('action');
+    $.post(url);
+    $(this).parent().remove();
+  });
 });

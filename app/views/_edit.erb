@@ -1,0 +1,6 @@
+<h2>Edit Your Note</h2>
+<form id='submit-edit' action='/edit/<%=@note.id%>' method='post'>
+  <input type='text' name='note[title]' value='<%=@note.title%>'>
+  <input type='text' name='note[content]' value='<%=@note.content%>'>
+  <input type='submit' value='Edit'>
+</form>
